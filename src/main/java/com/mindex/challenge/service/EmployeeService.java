@@ -1,6 +1,7 @@
 package com.mindex.challenge.service;
 
 import com.mindex.challenge.dao.EmployeeRepository;
+import com.mindex.challenge.data.Compensation;
 import com.mindex.challenge.data.Employee;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ public class EmployeeService {
     }
 
     public Employee read(String id) {
-        LOG.debug("Creating employee with id [{}]", id);
+        LOG.debug("Reading employee with id [{}]", id);
 
         Employee employee = employeeRepository.findByEmployeeId(id);
 
@@ -44,4 +45,11 @@ public class EmployeeService {
 
         return employeeRepository.save(employee);
     }
+
+    public void addNewCompensation(String employeeId, Compensation compensation) {
+        Employee employee = this.read(employeeId);
+        employee.addNewCompensation(compensation);
+        this.update(employee);
+    }
+
 }
